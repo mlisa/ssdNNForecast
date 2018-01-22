@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> NN Forecast</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.js"></script>
+    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
+    <script src="node_modules/encog/encog.js"></script>
+    <script src="js/globalVar.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>Neural network forecast</h2>
+        </div>
+        <div class="row">
+                <div class="col-md-6">
+                    <h4>File CSV da analizzare</h4>
+                    <input type="file" id="inputCSV" onchange="handleFiles(this.files)"><br>   
+                   </div> 
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Dati originali</h4>
+                <canvas id="chart"></canvas>
+            </div>
+            <div class="col-md-6">
+                <h4>Dati elaborati</h4>
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Configurazione rete neurale</h4>
+                    <h5>Manuale</h5>
+                    Input<input class="param" value ="12" id="inputN" type="number">
+                    Hidden<input class="param" value ="8" id="hiddenN" type="number">
+                    Output<input class="param" value ="1" id="outputN" type="number"><br>
+                    <h5>Predefinita</h5>
+                    <input type="checkbox" id="bim" value="bim"/> Bimestrale (2-2-1) <br>
+                    <input type="checkbox" id="ann" value="bim"/> Annuale (2-2-1) <br><br>
+
+                    Valori da prevedere <input class="param" value ="12" id="valN" type="number">
+                    <br><br>
+                    <input id="train" type="button" value="Addestra" onclick="training()">
+                    <input id="pred" type="button" value="Prevedi" onclick="forecast()" disabled>  <br>
+            </div>
+            <div class="col-md-6">
+                <h4>Preprocessing</h4>
+                <input type="button" value="Differenziazione" onclick="runDiff()">
+                <input type="button" value="Logaritmo" onclick="runLog()">
+                <input type="button" value="Normalizzazione 0-1" onclick="runNorm()"><br><br>
+                <input type="button" value="Destagionalizzazione (6)" onclick="runDeseason(6)">
+                <input type="button" value="Destagionalizzazione (12)" onclick="runDeseason(12)"><br><br>
+                <input type="button" value="Reset" onclick="runReset()">
+                <br><br><br>
+                <h4>Risultati:</h4> <br>
+                    <textarea readonly id="res" rows="12" cols="75"></textarea>
+            </div>
+        </div>
+        <div class="row">
+        <!--...-->
+        </div>
+  </div>
+
+  
+</body>
+</html>
